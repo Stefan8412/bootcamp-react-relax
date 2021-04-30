@@ -1,0 +1,24 @@
+{
+  "env": {
+    "browser": true
+  },
+  "extends": [
+    "airbnb",
+    "airbnb/hooks",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "prettier/prettier": "error",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ],
+    "react/no-unescaped-entities": "off",
+    "import/prefer-default-export": "off",
+    "react/require-default-props": "off",
+    "arrow-body-style": "off",
+    "react/jsx-props-no-spreading": "off"
+  }
+}
