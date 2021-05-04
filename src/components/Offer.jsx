@@ -32,8 +32,8 @@ export const Offer = ({
           src={imageUrl}
           fallbackSrc={placeholder}
           alt={imageAlt}
-          transition="transform .3s ease-in-out"
-          _groupHover={{ transform: 'scale(1.2)' }}
+          transition="transform .2s ease-out"
+          _groupHover={{ transform: 'scale(1.1)' }}
         />
       </Box>
 
