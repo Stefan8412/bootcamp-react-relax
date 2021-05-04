@@ -21,7 +21,7 @@ import { useFetch } from '../hooks'
 export const Offers = () => {
   const [searchTerm, setSearchTerm] = React.useState('')
 
-  const { data: rawOffers, isLoading } = useFetch('http://localhost:3004/offers')
+  const { data: rawOffers, isLoading } = useFetch('http://localhost:3004/offers?_limit=12')
 
   const offerMinWidth = useToken('sizes', Offer.minWidth)
 
