@@ -26,7 +26,7 @@ export const OfferSingle = () => {
       <Header />
       <Image src={data.thumbnail} w="full" h="sm" objectFit="cover" />
       <Container maxWidth="container.md">
-        <Box py="4">
+        <Box py="10">
           <Heading>
             {data.city}, {data.country}
           </Heading>
@@ -39,6 +39,7 @@ export const OfferSingle = () => {
             <Text>{data.rating} / 5</Text>
           </HStack>
           {data.description?.split('\n').map((item, index) => (
+            // eslint-disable-next-line react/no-array-index-key
             <Text key={index}>{item}</Text>
           ))}
         </VStack>

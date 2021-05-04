@@ -12,11 +12,17 @@ import {
   useToken,
   Spinner,
   Center,
+  Heading,
+  VStack,
+  InputRightElement,
+  IconButton,
+  Badge,
 } from '@chakra-ui/react'
-import { AiOutlineSearch } from 'react-icons/ai'
+import { AiFillCloseCircle, AiOutlineSearch } from 'react-icons/ai'
 import { Offer } from '../components/Offer'
 import { Header } from './components/Header'
 import { useFetch } from '../hooks'
+import bg from '../assets/bg.jpg'
 
 export const Offers = () => {
   const [searchTerm, setSearchTerm] = React.useState('')
@@ -38,14 +44,45 @@ export const Offers = () => {
   return (
     <>
       <Header />
+      <Box bg={`url('${bg}') center / cover no-repeat`}>
+        <Box bg="blackAlpha.700" py="20">
+          <VStack as={Container} spacing="10">
+            <Heading size="2xl" color="white" textAlign="center">
+              Find your next adventure
+            </Heading>
+            <InputGroup maxW="md">
+              <InputLeftElement pointerEvents="none" h="full">
+                <Icon as={AiOutlineSearch} color="gray.300" boxSize="6" />
+              </InputLeftElement>
+              <Input
+                type="search"
+                size="lg"
+                placeholder="here"
+                color="white"
+                borderColor="whiteAlpha.500"
+                onChange={handleSearch}
+                value={searchTerm}
+              />
+              {searchTerm && (
+                <InputRightElement h="full">
+                  <IconButton
+                    variant="unstyled"
+                    as={AiFillCloseCircle}
+                    color="gray.300"
+                    boxSize="6"
+                    onClick={() => setSearchTerm('')}
+                  />
+                </InputRightElement>
+              )}
+            </InputGroup>
+          </VStack>
+        </Box>
+      </Box>
       <Container maxWidth="container.xl">
-        <Grid gridTemplateColumns={['auto', '15rem auto']} gap="4" py="4">
-          <InputGroup>
-            <InputLeftElement pointerEvents="none">
-              <Icon as={AiOutlineSearch} color="gray.300" />
-            </InputLeftElement>
-            <Input type="search" placeholder="Search offers" onChange={handleSearch} />
-          </InputGroup>
+        <Grid gridTemplateColumns={['auto', '15rem auto']} gap="4">
+          <Center h="12">
+            <Badge colorScheme="red">TODO: filters</Badge>
+          </Center>
           {isLoading ? (
             <Center height="100vh">
               <Spinner
@@ -57,9 +94,11 @@ export const Offers = () => {
               />
             </Center>
           ) : (
-            <Box>
-              <Box py="2">
-                <Text>{offers.length} offers found</Text>
+            <div>
+              <Box h="12" d="flex" alignItems="center">
+                <Text fontSize="sm" color="gray">
+                  {offers.length} offers found
+                </Text>
               </Box>
               <Grid
                 gridTemplateColumns={`repeat(auto-fill, minmax(${offerMinWidth}, 1fr));`}
@@ -90,7 +129,7 @@ export const Offers = () => {
                   )
                 )}
               </Grid>
-            </Box>
+            </div>
           )}
         </Grid>
       </Container>
