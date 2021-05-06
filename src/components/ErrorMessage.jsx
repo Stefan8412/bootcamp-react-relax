@@ -5,7 +5,7 @@ import { AiFillBug } from 'react-icons/ai'
 
 export const ErrorMessage = ({ error }) => {
   return (
-    <Center h="100vh">
+    <Center minH="100vh" py="10">
       <VStack spacing="2">
         <Icon as={AiFillBug} boxSize="16" color="red" />
         <Text fontSize="4xl" fontWeight="black">
