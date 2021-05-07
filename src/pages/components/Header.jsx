@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { FaLuggageCart, FaPercentage, FaSun } from 'react-icons/fa'
+import { FaLuggageCart, FaPercentage, FaSun, FaUser } from 'react-icons/fa'
 import { Box, Container, HStack, Icon, keyframes, Stack, Text } from '@chakra-ui/react'
 import { NavLink } from './NavLink'
+import { AuthContext } from './AuthProvider'
 
 const spinAnimation = keyframes`
   from {
@@ -14,8 +15,9 @@ const spinAnimation = keyframes`
 `
 
 export const Header = () => {
+  const { user } = useContext(AuthContext)
   return (
-    <Box py="4" shadow="lg">
+    <Box py="4" shadow="base">
       <Container
         maxWidth="container.xl"
         display="flex"
@@ -34,6 +36,13 @@ export const Header = () => {
           </NavLink>
           <NavLink to="/cart" leftIcon={<Icon as={FaLuggageCart} color="gray.600" />}>
             Cart
+          </NavLink>
+          <NavLink
+            to="/account"
+            colorScheme={user.name ? 'green' : undefined}
+            leftIcon={<Icon as={FaUser} color="gray.600" />}
+          >
+            {user.name || 'Account'}
           </NavLink>
         </Stack>
       </Container>
