@@ -2,6 +2,7 @@ import * as React from 'react'
 
 export const useFetch = (url) => {
   const [data, setData] = React.useState([])
+  const [count, setCount] = React.useState()
   const [error, setError] = React.useState()
   const [isLoading, setIsLoading] = React.useState(false)
   React.useEffect(() => {
@@ -9,6 +10,7 @@ export const useFetch = (url) => {
       try {
         setIsLoading(true)
         const response = await fetch(url)
+        setCount(response.headers.get('X-Total-Count'))
         const result = await response.json()
         setData(result)
         // eslint-disable-next-line no-shadow
@@ -23,6 +25,7 @@ export const useFetch = (url) => {
 
   return {
     data,
+    count,
     error,
     isLoading,
   }
