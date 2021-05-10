@@ -20,6 +20,7 @@ import {
   Stack,
   Text,
   useToken,
+  VStack,
 } from '@chakra-ui/react'
 import { AiFillCloseCircle, AiOutlineSearch } from 'react-icons/ai'
 import { uniqBy, sortBy, flowRight, identity } from 'lodash-es'
@@ -69,7 +70,7 @@ export const Offers = () => {
       <Header />
       <Box bg={`url('${bg}') center / cover no-repeat`}>
         <Box bg="blackAlpha.700" py="20">
-          <Stack as={Container} spacing="10">
+          <VStack as={Container} spacing="10">
             <Heading size="2xl" color="white" textAlign="center">
               Find your next adventure
             </Heading>
@@ -98,7 +99,7 @@ export const Offers = () => {
                 </InputRightElement>
               )}
             </InputGroup>
-          </Stack>
+          </VStack>
         </Box>
       </Box>
       <Container maxWidth="container.xl">
