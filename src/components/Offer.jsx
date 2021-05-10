@@ -22,10 +22,14 @@ export const Offer = ({
     <LinkBox
       maxW="sm"
       minW={CH_MIN_WIDTH}
-      borderWidth="1px"
-      borderRadius="lg"
+      borderRadius="md"
       overflow="hidden"
       role="group"
+      shadow="base"
+      transition="box-shadow .2s ease-in-out"
+      _hover={{
+        shadow: 'lg',
+      }}
     >
       <Box overflow="hidden">
         <Image
