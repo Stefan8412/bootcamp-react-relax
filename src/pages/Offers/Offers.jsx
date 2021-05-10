@@ -45,21 +45,17 @@ export const Offers = () => {
   const { data: rawOffers, isLoading } = useFetch('http://localhost:3004/offers?_limit=30')
   const offerMinWidth = useToken('sizes', Offer.minWidth)
 
-  const handleSearch = React.useCallback((e) => {
-    setSearchTerm(e.target.value)
-  }, [])
-
-  // maybe useMemo
+  // maybe `useMemo`
   const offers = searchTerm
     ? rawOffers.filter(({ country, city }) => (country + city).toLowerCase().includes(searchTerm))
     : rawOffers
 
   /**
+   * TODO: build incrementally
    * compose (Lodash's `flowRight`) example
    * const compose = (...fns) => fns.reduce((f, g) => (...args) => f(g(...args)))
+   * TODO: maybe `useMemo`
    */
-
-  // maybe useMemo
   const filteredOffers = flowRight(
     activeFilters.newOnly ? filterByNew : identity,
     activeFilters.country !== 'all' ? filterByCountry(activeFilters.country) : identity
@@ -84,7 +80,9 @@ export const Offers = () => {
                 placeholder="here"
                 color="white"
                 borderColor="whiteAlpha.500"
-                onChange={handleSearch}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value)
+                }}
                 value={searchTerm}
               />
               {searchTerm && (
