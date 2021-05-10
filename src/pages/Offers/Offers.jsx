@@ -19,15 +19,15 @@ import {
   Badge,
 } from '@chakra-ui/react'
 import { AiFillCloseCircle, AiOutlineSearch } from 'react-icons/ai'
-import { Offer } from '../components/Offer'
-import { Header } from './components/Header'
-import { useFetch } from '../hooks'
-import bg from '../assets/bg.jpg'
+import { Offer } from '../../components/Offer'
+import { Header } from '../components/Header'
+import { useFetch } from '../../hooks'
+import bg from '../../assets/bg.jpg'
 
 export const Offers = () => {
   const [searchTerm, setSearchTerm] = React.useState('')
 
-  const { data: rawOffers, isLoading } = useFetch('http://localhost:3004/offers?_limit=12')
+  const { data: rawOffers, isLoading } = useFetch('http://localhost:3004/offers?_limit=24')
 
   const offerMinWidth = useToken('sizes', Offer.minWidth)
 
