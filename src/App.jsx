@@ -9,6 +9,7 @@ import { OfferSingle } from './pages/OfferSingle'
 import { Cart } from './pages/Cart'
 import { Account } from './pages/Account'
 import { AuthProvider } from './pages/components/AuthProvider'
+import { HeaderFooter as HeaderFooterTemplate } from './pages/templates/HeaderFooter'
 
 function App() {
   return (
@@ -18,11 +19,13 @@ function App() {
           <Router>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/offers" element={<Offers />} />
-              <Route path="/offers/:id" element={<OfferSingle />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/account" element={<Account />} />
-              <Route path="*" element={<>404</>} />
+              <Route path="/*" element={<HeaderFooterTemplate />}>
+                <Route path="offers" element={<Offers />} />
+                <Route path="offers/:id" element={<OfferSingle />} />
+                <Route path="cart" element={<Cart />} />
+                <Route path="account" element={<Account />} />
+                <Route path="*" element={<>404</>} />
+              </Route>
             </Routes>
           </Router>
         </AuthProvider>

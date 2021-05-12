@@ -1,7 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Box, Container, Heading, HStack, Image, Text, VStack } from '@chakra-ui/react'
-import { Header } from './components/Header'
+import { Box, Container, Heading, HStack, Image, Stack, Text } from '@chakra-ui/react'
 import { Stars } from '../components/Stars'
 
 export const OfferSingle = () => {
@@ -23,15 +22,14 @@ export const OfferSingle = () => {
 
   return (
     <>
-      <Header />
       <Image src={data.thumbnail} w="full" h="sm" objectFit="cover" />
-      <Container maxWidth="container.md">
-        <Box py="10">
+      <Container maxWidth="container.md" py="8">
+        <Box mb="4">
           <Heading>
             {data.city}, {data.country}
           </Heading>
         </Box>
-        <VStack alignItems="start">
+        <Stack>
           <HStack>
             <Box d="inline-flex">
               <Stars filledCount={data.rating} />
@@ -42,7 +40,7 @@ export const OfferSingle = () => {
             // eslint-disable-next-line react/no-array-index-key
             <Text key={index}>{item}</Text>
           ))}
-        </VStack>
+        </Stack>
       </Container>
     </>
   )

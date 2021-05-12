@@ -25,7 +25,6 @@ import {
 import { AiFillCloseCircle, AiOutlineSearch } from 'react-icons/ai'
 import { uniqBy, sortBy, flowRight, identity } from 'lodash-es'
 import { Offer } from '../../components/Offer'
-import { Header } from '../components/Header'
 import { useFetch } from '../../hooks'
 import bg from '../../assets/bg.jpg'
 
@@ -47,7 +46,7 @@ export const Offers = () => {
 
   // maybe `useMemo`
   const offers = searchTerm
-    ? rawOffers.filter(({ country, city }) => (country + city).toLowerCase().includes(searchTerm))
+    ? rawOffers.filter(({ country, city }) => (city + country).toLowerCase().includes(searchTerm))
     : rawOffers
 
   /**
@@ -63,7 +62,6 @@ export const Offers = () => {
 
   return (
     <>
-      <Header />
       <Box bg={`url('${bg}') center / cover no-repeat`}>
         <Box bg="blackAlpha.700" py="20">
           <VStack as={Container} spacing="10">
