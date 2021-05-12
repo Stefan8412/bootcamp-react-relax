@@ -88,10 +88,11 @@ export const Offers = () => {
               {searchTerm && (
                 <InputRightElement h="full">
                   <IconButton
+                    aria-label="Clear search term"
                     variant="unstyled"
-                    as={AiFillCloseCircle}
+                    d="flex"
+                    icon={<AiFillCloseCircle />}
                     color="gray.300"
-                    boxSize="6"
                     onClick={() => setSearchTerm('')}
                   />
                 </InputRightElement>
