@@ -8,7 +8,9 @@ export const HeaderFooter = () => {
   return (
     <SimpleGrid minHeight="100vh" gridTemplateRows="auto 1fr auto">
       <Header />
-      <Outlet />
+      <div>
+        <Outlet />
+      </div>
       <Footer />
     </SimpleGrid>
   )
