@@ -6,7 +6,7 @@ export const Footer = () => {
     <Box bg="gray.700">
       <Container maxWidth="container.xl" py="4">
         <Text color="whiteAlpha.500" textAlign="center">
-          Created by {import.meta.env.VITE_AUTHOR_NAME}
+          © {new Date().getFullYear()} {import.meta.env.VITE_AUTHOR_NAME}
         </Text>
       </Container>
     </Box>
