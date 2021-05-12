@@ -7,7 +7,7 @@ import placeholder from '../assets/placeholder.png'
 
 const CH_MIN_WIDTH = '3xs'
 
-export const Offer = ({
+export const OfferCard = ({
   destination,
   imageUrl,
   imageAlt = destination,
@@ -78,7 +78,7 @@ export const Offer = ({
   )
 }
 
-Offer.propTypes = {
+OfferCard.propTypes = {
   destination: PropTypes.string.isRequired,
   imageUrl: PropTypes.string.isRequired,
   imageAlt: PropTypes.string,
@@ -90,4 +90,4 @@ Offer.propTypes = {
   linkTo: PropTypes.string.isRequired,
 }
 
-Offer.minWidth = CH_MIN_WIDTH
+OfferCard.minWidth = CH_MIN_WIDTH

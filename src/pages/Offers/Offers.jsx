@@ -24,7 +24,7 @@ import {
 } from '@chakra-ui/react'
 import { AiFillCloseCircle, AiOutlineSearch } from 'react-icons/ai'
 import { uniqBy, sortBy, flowRight, identity } from 'lodash-es'
-import { Offer } from '../../components/Offer'
+import { OfferCard } from '../../components/OfferCard'
 import { useFetch } from '../../hooks'
 import bg from '../../assets/bg.jpg'
 
@@ -42,7 +42,7 @@ export const Offers = () => {
   const [searchTerm, setSearchTerm] = React.useState('')
   const [activeFilters, setActiveFilters] = React.useState(initialActiveFilters)
   const { data: rawOffers, isLoading } = useFetch('http://localhost:3004/offers?_limit=30')
-  const offerMinWidth = useToken('sizes', Offer.minWidth)
+  const offerMinWidth = useToken('sizes', OfferCard.minWidth)
 
   // maybe `useMemo`
   const offers = searchTerm
@@ -163,11 +163,15 @@ export const Offers = () => {
                     rating,
                     reviewCount,
                   }) => (
-                    <Offer
+                    <OfferCard
                       key={id}
                       destination={`${city}, ${country}`}
                       imageUrl={thumbnail}
-                      formattedPrice={`$${price}`}
+                      formattedPrice={new Intl.NumberFormat('sk', {
+                        style: 'currency',
+                        currency: 'EUR',
+                        maximumFractionDigits: 0,
+                      }).format(price)}
                       rating={rating}
                       linkTo={String(id)}
                       nights={nights}
