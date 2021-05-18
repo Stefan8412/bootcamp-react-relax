@@ -1,18 +1,10 @@
 import React from 'react'
 import { differenceInMonths } from 'date-fns'
 import {
-  Box,
   Center,
   Checkbox,
   Container,
   Grid,
-  Heading,
-  Icon,
-  IconButton,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
   Radio,
   RadioGroup,
   SimpleGrid,
@@ -21,13 +13,11 @@ import {
   Text,
   useToast,
   useToken,
-  VStack,
 } from '@chakra-ui/react'
-import { AiFillCloseCircle, AiOutlineSearch } from 'react-icons/ai'
 import { uniqBy, sortBy, flowRight, identity } from 'lodash-es'
 import { OfferCard } from '../../components/OfferCard'
 import { useFetch } from '../../hooks'
-import bg from '../../assets/bg.jpg'
+import { SearchHeader } from './SearchHeader'
 
 const isNew = (date) => differenceInMonths(new Date(), new Date(date)) < 6
 
@@ -83,43 +73,13 @@ export const Offers = () => {
 
   return (
     <>
-      <Box bg={`url('${bg}') center / cover no-repeat`}>
-        <Box bg="blackAlpha.700" py="20">
-          <VStack as={Container} spacing="10">
-            <Heading size="2xl" color="white" textAlign="center">
-              Find your next adventure
-            </Heading>
-            <InputGroup maxW="md">
-              <InputLeftElement pointerEvents="none" h="full">
-                <Icon as={AiOutlineSearch} color="gray.300" boxSize="6" />
-              </InputLeftElement>
-              <Input
-                type="search"
-                size="lg"
-                placeholder="here"
-                color="white"
-                borderColor="whiteAlpha.500"
-                onChange={(e) => {
-                  setSearchTerm(e.target.value)
-                }}
-                value={searchTerm}
-              />
-              {searchTerm && (
-                <InputRightElement h="full">
-                  <IconButton
-                    aria-label="Clear search term"
-                    variant="unstyled"
-                    d="flex"
-                    icon={<AiFillCloseCircle />}
-                    color="gray.300"
-                    onClick={() => setSearchTerm('')}
-                  />
-                </InputRightElement>
-              )}
-            </InputGroup>
-          </VStack>
-        </Box>
-      </Box>
+      <SearchHeader
+        onSearchChange={(e) => {
+          setSearchTerm(e.target.value)
+        }}
+        searchTerm={searchTerm}
+        onClearSearch={() => setSearchTerm('')}
+      />
       <Container maxWidth="container.xl">
         <Grid gridTemplateColumns={['auto', '15rem auto']} gap="4">
           <Stack spacing="4" py="4">
