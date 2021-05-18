@@ -1,5 +1,6 @@
-import React, { useContext } from 'react'
+import * as React from 'react'
 import {
+  Box,
   Button,
   FormControl,
   FormErrorMessage,
@@ -35,7 +36,7 @@ export const SignUpForm = () => {
   })
   const toast = useToast()
 
-  const { signUp } = useContext(AuthContext)
+  const { signUp } = React.useContext(AuthContext)
 
   const onSubmit = (data) => {
     signUp(data)
@@ -49,7 +50,7 @@ export const SignUpForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <Box as="form" onSubmit={handleSubmit(onSubmit)} w="full">
       <SimpleGrid gap="4">
         <FormControl isRequired isInvalid={!!errors?.name?.message}>
           <FormLabel>Name</FormLabel>
@@ -70,6 +71,6 @@ export const SignUpForm = () => {
       <Button w="full" mt="5" type="submit" colorScheme="green" isDisabled={!isDirty || !isValid}>
         Sign up
       </Button>
-    </form>
+    </Box>
   )
 }

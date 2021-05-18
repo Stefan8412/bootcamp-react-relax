@@ -3,7 +3,6 @@ import { differenceInMonths } from 'date-fns'
 import {
   Center,
   Checkbox,
-  Container,
   Grid,
   Radio,
   RadioGroup,
@@ -18,6 +17,7 @@ import { uniqBy, sortBy, flowRight, identity } from 'lodash-es'
 import { OfferCard } from '../../components/OfferCard'
 import { useFetch } from '../../hooks'
 import { SearchHeader } from './SearchHeader'
+import { Container } from '../../components/Container'
 
 const isNew = (date) => differenceInMonths(new Date(), new Date(date)) < 6
 
@@ -80,7 +80,7 @@ export const Offers = () => {
         searchTerm={searchTerm}
         onClearSearch={() => setSearchTerm('')}
       />
-      <Container maxWidth="container.xl">
+      <Container>
         <Grid gridTemplateColumns={['auto', '15rem auto']} gap="4">
           <Stack spacing="4" py="4">
             <Text fontWeight="bold" textTransform="uppercase">

@@ -1,9 +1,10 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { FaLuggageCart, FaPercentage, FaSun, FaUser } from 'react-icons/fa'
-import { Box, Container, HStack, Icon, keyframes, Stack, Text } from '@chakra-ui/react'
+import { Box, HStack, Icon, keyframes, Stack, Text } from '@chakra-ui/react'
 import { NavLink } from './NavLink'
 import { AuthContext } from './AuthProvider'
+import { Container } from '../../components/Container'
 
 const spinAnimation = keyframes`
   from {
@@ -18,12 +19,7 @@ export const Header = () => {
   const { user } = useContext(AuthContext)
   return (
     <Box py="4" shadow="base">
-      <Container
-        maxWidth="container.xl"
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-      >
+      <Container display="flex" justifyContent="space-between" alignItems="center">
         <HStack as={Link} to="/">
           <Icon as={FaSun} color="gray.600" animation={`8s ${spinAnimation} linear infinite`} />
           <Text as="span" fontWeight="bold">
