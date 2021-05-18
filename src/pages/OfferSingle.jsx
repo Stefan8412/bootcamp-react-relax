@@ -36,7 +36,7 @@ export const OfferSingle = () => {
             </Box>
             <Text>{data.rating} / 5</Text>
           </HStack>
-          {data.description?.split('\n').map((item, index) => (
+          {data.description?.split('\n\n').map((item, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <Text key={index}>{item}</Text>
           ))}
