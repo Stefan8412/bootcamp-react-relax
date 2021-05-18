@@ -19,6 +19,7 @@ import {
   Spinner,
   Stack,
   Text,
+  useToast,
   useToken,
   VStack,
 } from '@chakra-ui/react'
@@ -35,30 +36,50 @@ const initialActiveFilters = {
   country: 'all',
 }
 
-const filterByNew = (offers) => offers.filter(({ createdAt }) => isNew(createdAt))
+const searchBy = (term) => (offers) =>
+  offers.filter(({ country, city }) => (city + country).toLowerCase().includes(term.toLowerCase()))
+
+const filterByNew = (isNewChecker) => (offers) =>
+  offers.filter(({ createdAt }) => isNewChecker(createdAt))
+
 const filterByCountry = (country) => (offers) => offers.filter((offer) => offer.country === country)
+
+const pickCountry = ({ country }) => country
 
 export const Offers = () => {
   const [searchTerm, setSearchTerm] = React.useState('')
   const [activeFilters, setActiveFilters] = React.useState(initialActiveFilters)
-  const { data: rawOffers, isLoading } = useFetch('http://localhost:3004/offers?_limit=30')
+  const { data, isLoading, error } = useFetch('http://localhost:3004/offers?_limit=30')
   const offerMinWidth = useToken('sizes', OfferCard.minWidth)
+  const toast = useToast()
 
-  // maybe `useMemo`
-  const offers = searchTerm
-    ? rawOffers.filter(({ country, city }) => (city + country).toLowerCase().includes(searchTerm))
-    : rawOffers
+  if (error) {
+    toast({
+      status: 'error',
+      title: 'Sorry, something went terrribly wrong',
+      description: 'We are really, really, REALLY sorry!',
+    })
+  }
 
-  /**
-   * TODO: build incrementally
-   * compose (Lodash's `flowRight`) example
-   * const compose = (...fns) => fns.reduce((f, g) => (...args) => f(g(...args)))
-   * TODO: maybe `useMemo`
-   */
-  const filteredOffers = flowRight(
-    activeFilters.newOnly ? filterByNew : identity,
+  const searchAndFilterByNew = flowRight(
+    searchBy(searchTerm),
+    activeFilters.newOnly ? filterByNew(isNew) : identity
+  )
+
+  // `flowRight` is Lodash term for `composeRight`
+  const filterOffers = flowRight(
+    searchAndFilterByNew,
     activeFilters.country !== 'all' ? filterByCountry(activeFilters.country) : identity
-  )(offers)
+  )
+
+  const filteredOffers = filterOffers(data)
+
+  const countries = flowRight(
+    // eslint-disable-next-line no-shadow
+    (data) => uniqBy(data, pickCountry),
+    // eslint-disable-next-line no-shadow
+    (data) => sortBy(data, pickCountry)
+  )(searchAndFilterByNew(data))
 
   return (
     <>
@@ -121,10 +142,7 @@ export const Offers = () => {
             >
               <SimpleGrid gap="2">
                 <Radio value="all">All</Radio>
-                {sortBy(
-                  uniqBy(offers, ({ country }) => country),
-                  ({ country }) => country
-                ).map(({ id, country }) => (
+                {countries.map(({ id, country }) => (
                   <Radio key={id} value={country}>
                     {country}
                   </Radio>
