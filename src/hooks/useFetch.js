@@ -1,6 +1,10 @@
 import * as React from 'react'
 
 export const useFetch = (url) => {
+  /**
+   * We use `[]` here as an initial state to avoid checking for undefined everywhere `data` is manipulated
+   * (array methods work on empty array, but not on undefined / null / ...)
+   */
   const [data, setData] = React.useState([])
   const [count, setCount] = React.useState()
   const [error, setError] = React.useState()
